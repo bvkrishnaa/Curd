@@ -9,10 +9,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
-    AppComponent ,LoginComponent  
+    AppComponent ,LoginComponent, ProductComponent  
   ],
   imports: [
     BrowserModule,

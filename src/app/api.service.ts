@@ -22,22 +22,28 @@ export class ApiService {
      return this._http.post<any>(this._registerUrl,user);
     
    }
+   get(url){
+    url=this.CommonUrlNew+url;
+    return this._http.get(url);
+  }
    post(url,data:any){
     url=this.CommonUrlNew+url;
     return this._http.post(url,data);
   }
-  get(url){
+  delete(url){
     url=this.CommonUrlNew+url;
-    return this._http.get(url);
+    return this._http.delete(url);
+  }
+
+  put(url,data){
+    url=this.CommonUrlNew+url;
+    return this._http.put(url,data);
   }
    loginUser(user){
      return this._http.post<any>(this._loginUrl,user);
    }
 
-   getId(url,id){
-     url=this.CommonUrlNew+url;
-     return this._http.get(url,id);
-   }
+  
    loggedIn(){
      return !!localStorage.getItem('token');
    }

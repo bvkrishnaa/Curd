@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  CommonUrl: "http://localhost:61291/api/"
+  //old:61291
+  //new:63126
+  CommonUrl: "http://localhost:63126/api/"
 };
 
 /*

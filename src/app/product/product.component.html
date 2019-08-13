@@ -6,35 +6,30 @@
 <div class="container" *ngIf="!IsCreation">
 	<div class="card bg-light">
 		<article class="card-body mx-auto">
-	<div class="form-group input-group">
-		<div class="input-group-prepend">
-			<span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		</div>
-		<input name="id" class="form-control" placeholder="Id" type="number" [(ngModel)]="Creation.Id">
-	</div>
+	
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		</div>
-        <input name="fname" class="form-control" placeholder="First Name" type="text" [(ngModel)]="Creation.FirstName">
+        <input name="fname" class="form-control" required placeholder="Product Name" type="text" [(ngModel)]="Creation.ProductName">
   </div> <!-- form-group// -->
     <div class="form-group input-group">
       <div class="input-group-prepend">
           <span class="input-group-text"> <i class="fa fa-user"></i> </span>
        </div>
-          <input name="lname" class="form-control" placeholder="Last Name" type="text" [(ngModel)]="Creation.LastName">
+          <input name="lname" class="form-control" required placeholder="enter quantity" type="number" [(ngModel)]="Creation.Quantity"  (change)="onChange(Creation.Quantity,true)">
       </div>
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
 		 </div>
-        <input name="date" class="form-control" placeholder="Select Date" type="date" [(ngModel)]="Creation.Date">
+        <input name="date" class="form-control" required placeholder="enter rate"  type="number" [(ngModel)]="Creation.Rate" (change)="onChange(Creation.Rate,false)">
     </div>
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="email" class="form-control" required placeholder="Email address" type="email" [(ngModel)]="Creation.Email">
+        <input name="email" class="form-control" required disabled type="money" [(ngModel)]="Creation.Amount">
     </div>
     <div class="form-group">
 		<button type="submit" class="btn btn-primary btn-block" [hidden]="Submit==0" [disabled]="!CForm.valid" (click)="Save()"> Save  </button>
@@ -46,27 +41,22 @@
 <div *ngIf="IsCreation">
 		<table align="center" border="1">
 			<tr>
-				<th>Id</th>
-				<th>FirstName</th>
-				<th>LastName</th>
-				<th>Date</th>
-				<th>Email</th>
-				<th>Action</th>
+				<th>Product Name</th>
+				<th>Quantity</th>
+				<th>Rate</th>
+				<th>Amount</th>
 			</tr>	
 			<tr *ngFor="let item of itemData">
-				<td>{{item.Id}}</td>
-				<td>{{item.FirstName}}</td>
-				<td>{{item.LastName}}</td>
-				<td>{{item.Date|date}}</td>
-				<td>{{item.Email}}</td>
+				<td>{{item.ProductName}}</td>
+				<td>{{item.Quantity}}</td>
+				<td>{{item.Rate}}</td>
+				<td>{{item.Amount}}</td>
 				<td>
-					<button type="submit" (click)="Edit(item.Id)">Edit</button>
-					<button type="submit" (click)="View(item.Id)">View</button>
-					<button type="submit" (click)="Delete(item.Id)">Delete</button>
+					<button type="submit" (click)="Edit(item.ProductId)">Edit</button>
+					<button type="submit" (click)="View(item.ProductId)">View</button>
+					<button type="submit" (click)="Delete(item.ProductId)">Delete</button>
 				</td>
 			</tr>
 		</table>
 	</div>
-</form>	
-<button routerLink="/product">Product</button>	
-<router-outlet></router-outlet>
+</form>		

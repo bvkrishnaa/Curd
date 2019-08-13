@@ -1,21 +1,18 @@
-import { CommonmethodsService } from './CommonMethods/commonmethods.service';
-import { Subject } from 'rxjs';
-import { ApiService } from './api.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonmethodsService } from '../CommonMethods/commonmethods.service';
+import { ApiService } from '../api.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
-export class AppComponent {
-  
+export class ProductComponent implements OnInit {
+
   Submit: number = 1;
-  Creation:any={Id:'',FirstName:'',LastName:'',Date:'',Email:''};
+  Creation:any={ProductName:'', Quantity:0,Rate:0,Amount:0};
   title = 'DAssign';
   constructor(private _service:ApiService,private common:CommonmethodsService){
-    this.feb(0,1,10,1);
-    
     this.IsCreation=false;
   }
  ngOnInit(): void {
@@ -23,16 +20,9 @@ export class AppComponent {
    //Add 'implements OnInit' to the class.
    this.Creation={};
  }
-  feb(a,b,counter,num){
-    console.log(a);
-    if(counter>num){
-      this.feb(b,a+b,counter+1,Number);
-    }
-  }
   resData:any;
   Save(){
-    this._service.post("Customer/Post",this.Creation)
-    .subscribe(res=>{
+    this._service.post("Product/PostSave",this.Creation).subscribe(res=>{
       this.resData=res;
       this.ngOnInit();
       CommonmethodsService.showAlert('','save');
@@ -46,7 +36,7 @@ export class AppComponent {
   IsCreation:boolean=false;
   GetData(){
     this.IsCreation=true;
-    this._service.get("Customer/Get").subscribe(res=>{
+    this._service.get("Product/GetData").subscribe(res=>{
       this.itemData=res;
       
     },
@@ -61,7 +51,7 @@ export class AppComponent {
   }
 
   Edit(id){
-    this._service.get('Customer/GetById?id='+id)
+    this._service.get('Product/EditData?id='+id)
     .subscribe(res=>{
       this.Creation.Id=res[0].Id;
       this.Creation.FirstName=res[0].FirstName;
@@ -79,7 +69,7 @@ export class AppComponent {
     this.Edit(id);
   }
   Delete(id){
-    this._service.delete('Customer/Delete?Id='+id)
+    this._service.get('Product/DeleteData?Id='+id)
     .subscribe(res=>{
       this.resData=res;
       CommonmethodsService.showAlert('','delete');
@@ -88,7 +78,7 @@ export class AppComponent {
   }
 
   Update(){
-    this._service.put('Customer/Put',this.Creation)
+    this._service.post('Product/Update',this.Creation)
     .subscribe(res=>{
       this.resData=res;
       this.ngOnInit();
@@ -96,5 +86,13 @@ export class AppComponent {
     },error=>{
       console.log(error);
     })
+  }
+  onChange(value:number,isQty){
+    if(isQty){
+      this.Creation.Quantity=value;
+    }else{
+      this.Creation.Rate=value;
+    }
+    this.Creation.Amount=Number(this.Creation.Rate)*Number(this.Creation.Quantity);
   }
 }
