@@ -1,0 +1,11 @@
+.container{
+    width: 350px;
+    height: auto;
+    }
+    
+    
+    h4.ridge {
+        border-style: ridge;
+        text-align: center;
+        color:blue
+    }

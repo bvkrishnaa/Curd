@@ -10,8 +10,7 @@ import { ApiService } from '../api.service';
 export class ProductComponent implements OnInit {
 
   Submit: number = 1;
-  Creation:any={ProductName:'', Quantity:0,Rate:0,Amount:0};
-  title = 'DAssign';
+  Creation:any={HNo:'', Pincode:0,City:'',State:'',Landmark:'',Name:'',Mobileno:''};
   constructor(private _service:ApiService,private common:CommonmethodsService){
     this.IsCreation=false;
   }
